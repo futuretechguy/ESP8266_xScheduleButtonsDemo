@@ -5,14 +5,16 @@
             "includePath": [
                 "C:\\Users\\wende\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.4.0-rc2\\cores\\esp8266",
                 "C:\\Users\\wende\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.4.0-rc2\\libraries",
-                "C:\\Users\\wende\\Documents\\ESP8266_xScheduleButtonsDemo"
+                "C:\\Users\\wende\\Documents\\ESP8266_xScheduleButtonsDemo",
+                "C:\\Program Files (x86)\\Arduino\\libraries"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "C:\\Users\\wende\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.4.0-rc2\\cores\\esp8266",
                     "C:\\Users\\wende\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.4.0-rc2\\libraries",
-                    "C:\\Users\\wende\\Documents\\ESP8266_xScheduleButtonsDemo"
+                    "C:\\Users\\wende\\Documents\\ESP8266_xScheduleButtonsDemo",
+                    "C:\\Program Files (x86)\\Arduino\\libraries"
                 ]
             },
             "intelliSenseMode": "msvc-x64",
