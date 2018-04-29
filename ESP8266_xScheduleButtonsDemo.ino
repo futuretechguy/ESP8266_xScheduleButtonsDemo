@@ -6,7 +6,7 @@ const char* password = "WiFi Pawword";
 const char* host = SERVER_IP;
 short pressed[100]; // an array keeping state of the buttons between loops
 short buttons; // number of buttons
-int Processed = 0;
+int Processed = 0; //for debugging
 
 void setup(){
 // Prepare to send debug messages  
