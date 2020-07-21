@@ -1,9 +1,10 @@
-#include <ESP8266WiFi.h>
-#include <configure.h>
 
-const char* ssid     = "WiFi SSID";
-const char* password = "WiFi Pawword"; 
-const char* host = SERVER_IP;
+#include <ESP8266WiFi.h>
+#include "configure.h"
+
+const char* ssid     = "xxxx"; // your WiFi SSID
+const char* password = "xxxx"; // your WiFi Password
+const char* host = SERVER_IP; // the IP address of the server running xSchedule
 short pressed[100]; // an array keeping state of the buttons between loops
 short buttons; // number of buttons
 int Processed = 0; //for debugging
@@ -39,7 +40,6 @@ void setup(){
     pressed[i] = LOW;
   }
 
-
   // We start by connecting to a WiFi network
 #ifdef DEBUG
   Serial.println();
@@ -48,7 +48,10 @@ void setup(){
   Serial.println(ssid);
 #endif
 
-  WiFi.config(IPAddress(192, 168, 100, 74), IPAddress(192, 168, 100, 10), IPAddress(192, 168, 100, 10));
+  // Next, we configure the network connection, making sure the WiFi is in Station mode and not AP+Station
+  // The IP address is configured manually: 3-5 octet groups of localIP, gateway, subnet, and then optional DNS server addresses (up to 2)
+  WiFi.mode(WIFI_STA); 
+  WiFi.config(IPAddress(192, 168, 1, 222), IPAddress(192, 168, 1, 1), IPAddress(192, 168, 1, 0));
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -64,13 +67,10 @@ void setup(){
 #endif
 }
 
-
-
-
 void loop() {
 
   //Serial.println(digitalRead(12));
-  bool ispressed = false; // keep track if any button press so the press indicator LED can be turned on
+  bool ispressed = false; // keep track if any button is pressed so the press indicator LED can be turned on
 
   // check each button
   for (int i = 0; i < BUTTONS; i++)
@@ -94,14 +94,21 @@ void loop() {
       Serial.print(" : ");
       Serial.println(v);
 #endif
+  
+  // For every button you have installed and configured to work with xSchedule, you must have an "if" statement with the correct "SendData" parameter(s) below.
+  // Make sure both the pin number and the button name are correct.
+  
       if (v == LOW)
       {
         // button is newly pressed
         if (pins[i] == 12) { //Process GPIO 12
-          SendData("/xScheduleCommand?Command=PressButton&Parameters=Next"); //xScheduler button is named Next
+          SendData("/xScheduleCommand?Command=PressButton&Parameters=Next"); //This xScheduler button is named Next
         }
-        if (pins[i] == 14) { //Process GOIO 14
-          SendData ("/xScheduleCommand?Command=PressButton&Parameters=Back");  //xScheduler button is named Back
+        if (pins[i] == 14) { //Process GPIO 14
+          SendData ("/xScheduleCommand?Command=PressButton&Parameters=Back");  //This xScheduler button is named Back
+        }
+        if (pins[i] == 13) { //Process GPIO 13
+          SendData ("/xScheduleCommand?Command=PressButton&Parameters=Other");  //This xScheduler button is named Other
         }
       }
       pressed[i] = v;
@@ -118,8 +125,6 @@ void loop() {
   delay(10);
 
 }
-
-
 
 void SendData (String urlrequest) {
 
